@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Electrolux Mobile Store</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            navy: '#011e41',
+            dark: '#111827',
+            red: '#e01e2b',
+            gray: '#f4f4f4',
+            border: '#e5e7eb',
+            textMuted: '#6b7280'
+          }
+        },
+        fontFamily: {
+          sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  body { -webkit-tap-highlight-color: transparent; }
+
+  /* Snap scroll for lifestyle cards */
+  .snap-x-mandatory { scroll-snap-type: x mandatory; }
+  .snap-start { scroll-snap-align: start; }
+
+  /* Countdown digits */
+  .countdown-digit {
+    background: #011e41;
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    border-radius: 6px;
+    padding: 4px 8px;
+    min-width: 34px;
+    text-align: center;
+    letter-spacing: 0.05em;
+    display: inline-block;
+  }
+  .countdown-sep {
+    color: #011e41;
+    font-weight: 900;
+    font-size: 18px;
+    margin: 0 2px;
+  }
+
+  /* Price blur on flash sale - redacted effect */
+  .price-blur {
+    filter: blur(4px);
+    user-select: none;
+  }
+
+  /* Active filter tab */
+  .filter-tab.active {
+    background: #d5dfe7;
+    color: #011e41;
+    font-weight: 700;
+  }
+
+  /* Smooth transitions */
+  .transition-fast { transition: all 0.18s ease; }
+
+  /* Badge pulse animation */
+  @keyframes badgePulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(224,30,43,0.4); }
+    50% { box-shadow: 0 0 0 5px rgba(224,30,43,0); }
+  }
+  .badge-pulse { animation: badgePulse 2s infinite; }
+
+  /* Sale banner text ticker */
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-track {
+    display: inline-flex;
+    white-space: nowrap;
+    animation: ticker 18s linear infinite;
+  }
+
+  /* Cart badge */
+  .cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e01e2b;
+    color: white;
+    font-size: 9px;
+    font-weight: 800;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Support pipeline step active */
+  .pipeline-step.active {
+    background: #bccad6;
+    color: #011e41;
+    font-weight: 700;
+  }
+
+  /* Product card hover lift */
+  .product-card {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .product-card:active {
+    transform: scale(0.97);
+  }
+
+  /* Sticky header background blur on scroll */
+  #stickyHeader {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(1,30,65,0.95);
+    transition: background 0.2s;
+  }
+
+  /* Skeleton loading shimmer */
+  @keyframes shimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+
+  /* Add to cart button tap effect */
+  .btn-tap:active { transform: scale(0.96); }
+
+  /* Announcement bar overflow clip */
+  .announcement-overflow { overflow: hidden; }
+
+  /* Bottom nav */
+  .bottom-nav { box-shadow: 0 -1px 0 rgba(0,0,0,0.08); }
+</style>
+</head>
+
+<body class="bg-[#f8f9fa] text-[#111827] font-sans antialiased max-w-[430px] mx-auto min-h-screen border-x border-gray-200 shadow-2xl relative pb-16 overflow-x-hidden">
+
+<!-- ─── ANNOUNCEMENT BAR ─────────────────────────────────────── -->
+<div class="bg-black text-white text-[10px] py-1.5 announcement-overflow">
+  <div class="ticker-track gap-10">
+    <span class="flex items-center gap-4 px-3">
+      <span class="flex items-center gap-1">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        2 years warranty on all products
+      </span>
+      <span class="text-white/40">·</span>
+      <span class="flex items-center gap-1">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        Free delivery 3–7 days
+      </span>
+      <span class="text-white/40">·</span>
+      <span>11.11 Sale — up to 50% off tonight</span>
+    </span>
+    <!-- duplicate for seamless loop -->
+    <span class="flex items-center gap-4 px-3">
+      <span class="flex items-center gap-1">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        2 years warranty on all products
+      </span>
+      <span class="text-white/40">·</span>
+      <span class="flex items-center gap-1">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/><path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        Free delivery 3–7 days
+      </span>
+      <span class="text-white/40">·</span>
+      <span>11.11 Sale — up to 50% off tonight</span>
+    </span>
+  </div>
+</div>
+
+<!-- ─── HERO + HEADER ─────────────────────────────────────────── -->
+<section class="relative bg-neutral-900 text-white min-h-[460px] overflow-hidden flex flex-col justify-between">
+  <!-- Hero background -->
+  <div class="absolute inset-0 z-0">
+    <img alt="Holiday wooden floor living room background" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7CekwD3yzh6tX2ub8n9ZSe3CoYDodRmOKZYB5AAPO3UVbszTOhkPnflB2G9M2EMlEfHAgyAIVG9kJwXu1lC0omlFlQpmS2-apUqr-EdC_ClBBzB19_qTnIOEQpkCQ6SJBdT0d0TqMmlk1BtuHo5WKHe-wm0tsRb6cWdjARBb4ZORvHQfeY9AeSKB5CdKtfLBwIrYv44z9fxWx4lU88-J12MPkhEo2nHIvXRCzqDg">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/65 via-black/10 to-black/75"></div>
+  </div>
+
+  <!-- Sticky-style header -->
+  <header class="relative z-10 px-4 pt-3 pb-1 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-7 h-7 border-2 border-white rounded-full flex items-center justify-center font-black text-sm tracking-tighter">E</div>
+      <span class="font-bold text-lg tracking-wider uppercase">Electrolux</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <button aria-label="User Profile" class="transition-fast active:opacity-60">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+      </button>
+      <button aria-label="Shopping Bag" class="relative transition-fast active:opacity-60">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        <span class="cart-badge">2</span>
+      </button>
+      <button aria-label="Menu" class="transition-fast active:opacity-60">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Search bar -->
+  <div class="relative z-10 px-4 mt-1">
+    <div class="backdrop-blur-md bg-white/20 border border-white/30 rounded-full px-4 py-2.5 flex items-center gap-2.5 shadow-lg">
+      <svg class="w-4 h-4 text-white/80 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg>
+      <input class="bg-transparent text-sm placeholder-white/80 text-white focus:outline-none w-full border-none focus:ring-0" placeholder="What are you looking for...?" type="text">
+      <button class="bg-white/25 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full flex-shrink-0 border border-white/30">Search</button>
+    </div>
+  </div>
+
+  <!-- Hero copy + CTA -->
+  <div class="relative z-10 px-5 pb-7 pt-20 flex items-end justify-between">
+    <div class="max-w-[260px]">
+      <p class="text-[10px] font-semibold uppercase tracking-widest text-white/75 mb-1.5">UltraReach Robot Vacuum</p>
+      <h1 class="text-[26px] font-normal leading-[1.2] text-white drop-shadow-md">
+        Reach every corner of your space
+      </h1>
+      <button class="mt-4 bg-white text-[#011e41] text-xs font-bold px-5 py-2 rounded-full btn-tap transition-fast hover:bg-white/90">
+        Explore now
+      </button>
+    </div>
+    <button aria-label="Go to product" class="w-11 h-11 rounded-full border border-white/50 flex items-center justify-center text-white backdrop-blur-sm btn-tap transition-fast hover:bg-white/20 flex-shrink-0 ml-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ─── CATEGORY QUICK LINKS ──────────────────────────────────── -->
+<section class="bg-white pt-5 pb-4 px-4 shadow-sm">
+  <div class="grid grid-cols-5 gap-1 text-center mb-4">
+    <!-- Laundry -->
+    <a class="flex flex-col items-center group" href="#">
+      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
+        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect height="20" rx="2" stroke-width="1.8" width="16" x="4" y="2"/><circle cx="12" cy="13" r="5" stroke-width="1.8"/><circle cx="8" cy="6" fill="currentColor" r="1"/></svg>
+      </div>
+      <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Laundry</span>
+    </a>
+    <!-- Kitchen -->
+    <a class="flex flex-col items-center group" href="#">
+      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
+        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 8h2a1 1 0 011 1v6a1 1 0 01-1 1h-2M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8M7 8V5a2 2 0 012-2h6a2 2 0 012 2v3" stroke-width="1.8"/></svg>
+      </div>
+      <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Kitchen</span>
+    </a>
+    <!-- Air -->
+    <a class="flex flex-col items-center group" href="#">
+      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
+        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect height="18" rx="3" stroke-width="1.8" width="12" x="6" y="3"/><line stroke-width="1.8" x1="9" x2="15" y1="8" y2="8"/><line stroke-width="1.8" x1="9" x2="15" y1="12" y2="12"/><line stroke-width="1.8" x1="9" x2="15" y1="16" y2="16"/></svg>
+      </div>
+      <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Air</span>
+    </a>
+    <!-- Floor -->
+    <a class="flex flex-col items-center group" href="#">
+      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
+        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2v14M8 22h8l-2-6h-4l-2 6zM10 6h4" stroke-width="1.8"/></svg>
+      </div>
+      <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Floor</span>
+    </a>
+    <!-- Accessories -->
+    <a class="flex flex-col items-center group" href="#">
+      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
+        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke-width="1.8"/><path d="M12 8v4l3 3" stroke-width="1.8"/></svg>
+      </div>
+      <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Acc...</span>
+    </a>
+  </div>
+
+  <!-- CTA pills -->
+  <div class="grid grid-cols-2 gap-2.5 pt-1">
+    <button class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full bg-[#f0f3f6] text-[11px] font-semibold text-gray-800 border border-gray-200 btn-tap transition-fast">
+      <svg class="w-3.5 h-3.5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+      Support →
+    </button>
+    <button class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-full bg-[#f0f3f6] text-[11px] font-semibold text-gray-800 border border-gray-200 btn-tap transition-fast">
+      <svg class="w-3.5 h-3.5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+      Register Product →
+    </button>
+  </div>
+</section>
+
+<!-- ─── FLASH SALE ─────────────────────────────────────────────── -->
+<section class="py-6 px-4 bg-[#f8f9fa]">
+  <!-- Header with countdown -->
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h2 class="text-xl font-normal text-gray-900">11.11 sale <span class="font-bold">up to 50% off</span></h2>
+      <p class="text-xs text-gray-500 mt-0.5">Prices revealed when the sale starts</p>
+    </div>
+    <!-- Live countdown -->
+    <div class="flex items-center gap-0.5" id="countdown">
+      <span class="countdown-digit" id="cd-h">08</span>
+      <span class="countdown-sep">:</span>
+      <span class="countdown-digit" id="cd-m">34</span>
+      <span class="countdown-sep">:</span>
+      <span class="countdown-digit" id="cd-s">00</span>
+    </div>
+  </div>
+
+  <!-- Product slider -->
+  <div class="flex gap-3 overflow-x-auto no-scrollbar snap-x-mandatory pb-3">
+    <!-- Card 1 -->
+    <div class="min-w-[140px] w-[140px] bg-white rounded-2xl p-3 flex flex-col shadow-sm border border-gray-100 flex-shrink-0 snap-start product-card">
+      <div class="absolute top-2 right-2 bg-[#e01e2b] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full badge-pulse relative">-37%</div>
+      <div class="h-28 flex items-center justify-center mb-3 mt-1">
+        <img alt="Front Load Washing Machine" class="max-h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9KjgrVt6u2mNbHHU17VIQFS31gFc6hvSv0aTS1JaSn67MxNRGCIpO09oxqw_gEbLbtwltrQO6fkmdcxAEs5tpkIefHRRKEAOfYn8K-37mwKjHjODC3MW3Es1P0AWHBudVFKKIHr6sZgJ9ZJJcno3IGsX4DdnilTXDDTiQUkggjuRe8vMKat5TVEgcqS6J5C3hk54Q7U_qRUQwqKHDAsM_neqA9UM6cpYw-XcNcVU">
+      </div>
+      <p class="text-[11px] text-gray-700 font-medium leading-tight mb-1.5">9/6kg UltimateCare 5 Washer Dryer</p>
+      <p class="text-[10px] text-gray-400 line-through">฿ 30,990</p>
+      <p class="text-[13px] font-bold text-[#e01e2b] price-blur">฿ 19,500</p>
+    </div>
+    <!-- Card 2 -->
+    <div class="min-w-[140px] w-[140px] bg-white rounded-2xl p-3 flex flex-col shadow-sm border border-gray-100 flex-shrink-0 snap-start product-card">
+      <div class="absolute top-2 right-2 bg-[#e01e2b] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full badge-pulse relative">-38%</div>
+      <div class="h-28 flex items-center justify-center mb-3 mt-1">
+        <img alt="Dark Washing Machine" class="max-h-full object-contain filter grayscale brightness-50 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTo2gHplQXsF8UYySDHYFOwOGjW4Ki2PzEJq3eE05ZzHkDHNACY5Wr83G6FcU_ADCPhYvuyhd57cL3wHO5qqC7Rdng533SiPnTxZaB43fLorPRqkRGNqZqUbTaHHKPHMTaN29rIXQrB9iHdQISz8fgkSBYMn93xtSpZbXtamMqhJTyc_xK-W9LWwiIaqV8kRSmMnPeuDF5j2PBGHT5eyBo51J0qEKTpZP425P_lho">
+      </div>
+      <p class="text-[11px] text-gray-700 font-medium leading-tight mb-1.5">11.7/7kg UltimateCare Ultra</p>
+      <p class="text-[10px] text-gray-400 line-through">฿ 35,990</p>
+      <p class="text-[13px] font-bold text-[#e01e2b] price-blur">฿ 22,000</p>
+    </div>
+    <!-- Card 3 -->
+    <div class="min-w-[140px] w-[140px] bg-white rounded-2xl p-3 flex flex-col shadow-sm border border-gray-100 flex-shrink-0 snap-start product-card">
+      <div class="absolute top-2 right-2 bg-[#e01e2b] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full badge-pulse relative">-31%</div>
+      <div class="h-28 flex items-center justify-center mb-3 mt-1">
+        <img alt="Washing Machine" class="max-h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB46Zg1ye3kkFwb6sXmgJ_BwB1aFgrF8VQpqpuz3ggbO8tBg72OcFCgm4cp3PJUkTi3pqCjjg1GNOIBVEvdh8m6vMzyzvOne76xV-T9h2CAc8ajwZOJGD9NNosQP62OPzBx6-q4Vti76X7KkPwmnAaHkCTJkYqsFGxqOhj_KEGpYoFP_bBIRt7tFPbZPdTTMgS1D84wEH35hGqi0E7SN0aPvkx__BFDhbwCo085yHc">
+      </div>
+      <p class="text-[11px] text-gray-700 font-medium leading-tight mb-1.5">11kg UltimateCare 3 Washer</p>
+      <p class="text-[10px] text-gray-400 line-through">฿ 24,990</p>
+      <p class="text-[13px] font-bold text-[#e01e2b] price-blur">฿ 17,200</p>
+    </div>
+  </div>
+
+  <!-- Notify Me -->
+  <button class="w-full bg-[#011e41] text-white py-3 rounded-full font-bold text-xs flex items-center justify-center gap-2 shadow-md btn-tap transition-fast hover:bg-[#022a5a] mt-2">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+    Notify Me When Sale Starts
+  </button>
+</section>
+
+<!-- ─── LIFESTYLE BANNER CARDS ────────────────────────────────── -->
+<section class="px-4 py-2">
+  <div class="flex gap-3.5 overflow-x-auto no-scrollbar snap-x-mandatory">
+    <!-- Card 1: Cooktop -->
+    <div class="min-w-[310px] w-[310px] h-[340px] rounded-2xl relative overflow-hidden shadow-md flex-shrink-0 snap-start product-card">
+      <img alt="Steaming pot on induction extractor hob" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFjboE8L3mBwD2ujiwSaMgpVpKEPzezvRue5BqKBztmUPkxE6qUYVsI5DVI9OA1pH-dhJZoTOWpJRXdxoAwT9weg11iasEbm05bk-IIwYHxPELXJMhB-jHXWJJkoLS1b1Vh-iP_2-_f746i29N-qKoV_RQ4iG4qImlRG5CRJGvBEKPnpT8MpfDI0e1FiZqJj9mDp4V0rDvYT56FDY2sjsfg9nKFp7WS3nt8nf9D5I">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+      <div class="absolute bottom-3 left-3 right-3 bg-white rounded-xl p-2.5 flex items-center gap-3 shadow-lg">
+        <div class="w-12 h-12 bg-black rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden">
+          <div class="w-8 h-2 bg-neutral-700 rounded-sm"></div>
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="text-[11px] font-semibold text-gray-800 leading-tight line-clamp-2">UltimateTaste 900 built-in extractor induction hob</h4>
+          <p class="text-[10px] font-bold text-[#e01e2b] mt-0.5">Save ฿90,000</p>
+          <div class="flex items-baseline gap-1.5 mt-0.5">
+            <span class="text-xs font-bold text-gray-900">฿ 109,990</span>
+            <span class="text-[10px] text-gray-400 line-through">฿ 199,990</span>
+          </div>
+        </div>
+        <button class="w-8 h-8 rounded-full bg-[#011e41] flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Card 2: Laundry -->
+    <div class="min-w-[310px] w-[310px] h-[340px] rounded-2xl relative overflow-hidden shadow-md flex-shrink-0 snap-start product-card">
+      <img alt="Modern washing machine laundry setup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdcOGPGmcU81W2hsa3Ot70k1FuOylCsXeamXmNz_KkeRd52-FAx6gDg1s_CYnIbXoBCIzdyGQvfQ03-IMcCzkrLai5uwOrsbduaXHFvCyQVnHLFAZZqESag-anUaMFnIT_NPzwfc3TuSvQmD-7bIibS6g1T2QhGScEA7xoLv3hmSYpUpJkElobZpt5ADnRIB7_IoDw4jae12cwD5wex6OHbNDJpBqSJaN5R4JQLg4">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+      <div class="absolute bottom-3 left-3 right-3 bg-white rounded-xl p-2.5 flex items-center gap-3 shadow-lg">
+        <div class="w-12 h-12 bg-gray-100 rounded-lg flex-shrink-0 flex items-center justify-center p-1 border border-gray-200">
+          <img alt="Washing Machine mini" class="max-h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB43O6ZlG9XdZP3f1MWDVZlPRweGWixg64hKIe9I-xDu2TiXe-RKQNcvWPEwEpJ3peTqHmbTDRF6S5SPfcuAMGE954uAxb4yjKhKycT0B1srImlNcWqz8IbJOQGv4zDvOQFc_D7sFhKjR1-ysIJWviqBgmEvjF85pBjRHrXWEfHYizqJAtAR08jhddMBfYXYZ4L3wbejL90S9nm3mRzTpSL06t8Fofxr_z3thy2jmQ">
+        </div>
+        <div class="flex-1 min-w-0">
+          <h4 class="text-[11px] font-semibold text-gray-800 leading-tight line-clamp-2">UltimateCare 700 Washer Dryer Combo 10/7kg</h4>
+          <p class="text-[10px] font-bold text-[#e01e2b] mt-0.5">Save ฿5,000</p>
+          <div class="flex items-baseline gap-1.5 mt-0.5">
+            <span class="text-xs font-bold text-gray-900">฿ 32,990</span>
+          </div>
+        </div>
+        <button class="w-8 h-8 rounded-full bg-[#011e41] flex items-center justify-center flex-shrink-0">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BEST SELLERS ───────────────────────────────────────────── -->
+<section class="py-6 px-4">
+  <div class="flex items-baseline justify-between mb-3">
+    <h2 class="text-lg font-bold text-gray-900">2026 Best Sellers</h2>
+    <a class="text-xs text-gray-600 underline font-medium" href="#">Shop All</a>
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="flex gap-2 overflow-x-auto no-scrollbar mb-4 text-xs font-medium" id="filterTabs">
+    <button class="filter-tab active bg-[#d5dfe7] text-[#011e41] px-4 py-1.5 rounded-full font-bold flex-shrink-0 btn-tap transition-fast" data-tab="laundry">Laundry</button>
+    <button class="filter-tab bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full flex-shrink-0 btn-tap transition-fast" data-tab="floor">Floor</button>
+    <button class="filter-tab bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full flex-shrink-0 btn-tap transition-fast" data-tab="air">Air</button>
+    <button class="filter-tab bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full flex-shrink-0 btn-tap transition-fast" data-tab="kitchen">Kitchen</button>
+    <button class="filter-tab bg-gray-100 text-gray-600 px-4 py-1.5 rounded-full flex-shrink-0 btn-tap transition-fast" data-tab="small-kitchen">Small Kitc...</button>
+  </div>
+
+  <!-- Product grid -->
+  <div class="flex gap-3 overflow-x-auto no-scrollbar snap-x-mandatory">
+    <!-- #1 -->
+    <div class="min-w-[155px] w-[155px] flex-shrink-0 snap-start product-card cursor-pointer">
+      <div class="bg-[#f5f6f8] rounded-xl p-3 relative h-48 flex items-center justify-center mb-2.5">
+        <span class="absolute top-2 left-2 bg-[#011e41] text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center">#1</span>
+        <img alt="Silver Washing Machine" class="max-h-36 object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl_AaOwmvYxHar5Lz_hBBNECByk15rtpsE2zSvUZFraDbsA0fS-sD149khG0UGOmdPeZTxN3sp1lsEYU5uA6szNidkne0edM23r-WxTFaJUIw2HNlvYbcNVrC-ILliqLF5zG06N_5B-urJOicYbcR1eC78Xr0N3JEIwPngASP1Rq-HFUARFz6mgdAoJKfgAy3lZS56Qew3AdHd0reqTdA_qwZ4KPMjAzmhPPa8duY">
+      </div>
+      <span class="text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded uppercase tracking-wide">New 2026</span>
+      <h3 class="text-xs font-semibold text-gray-900 mt-1 leading-snug line-clamp-2">UltimateCare 800 — Washer with SteamCare</h3>
+      <p class="text-[11px] font-bold text-[#e01e2b] mt-1">Save ฿3,043</p>
+      <div class="flex items-baseline gap-1">
+        <span class="text-xs font-bold text-gray-900">฿ 20,013</span>
+        <span class="text-[10px] text-gray-400 line-through">฿ 23,056</span>
+      </div>
+    </div>
+    <!-- #2 -->
+    <div class="min-w-[155px] w-[155px] flex-shrink-0 snap-start product-card cursor-pointer">
+      <div class="bg-[#f5f6f8] rounded-xl p-3 relative h-48 flex items-center justify-center mb-2.5">
+        <span class="absolute top-2 left-2 bg-[#011e41] text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center">#2</span>
+        <img alt="Dark Washing Machine" class="max-h-36 object-contain filter grayscale brightness-50 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa8W8kDVTOdS3w-bEBcyM1j8XU-i1t-47ljBCVQTcuViOG1U98M5Q3LeWIL_RQytCRDu8cw5jKVyOtX8bp_P4jLBTiZ5jOBDBOG1BN7UHnBlyuSovM1TgSBRePrq650ExU7zwquxahzlkFcUgM9-wvtrEtcrK_sNClzlL1aBuyxzKMKDc2RX5jIp81Wv5Xk_QOaoXAuZOpMLOdhVwN5dDTFMM5DJXYTdXc2ut4A7s">
+      </div>
+      <span class="text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded uppercase tracking-wide">New 2026</span>
+      <h3 class="text-xs font-semibold text-gray-900 mt-1 leading-snug line-clamp-2">UltimateCare 800 — Dark Edition</h3>
+      <div class="flex items-baseline gap-1 mt-5">
+        <span class="text-xs font-bold text-gray-900">฿ 20,013</span>
+      </div>
+    </div>
+    <!-- #3 -->
+    <div class="min-w-[155px] w-[155px] flex-shrink-0 snap-start product-card cursor-pointer">
+      <div class="bg-[#f5f6f8] rounded-xl p-3 relative h-48 flex items-center justify-center mb-2.5">
+        <span class="absolute top-2 left-2 bg-[#011e41] text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center">#3</span>
+        <img alt="White Washer" class="max-h-36 object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjjckfKXXk0HE_jTurG4ipXgBZIU0sZcMbVOYFWcFHtYuv6n-itjU1lnSFoRi8tqs39wpanKBYbpDy4zVIDtMxxJRcQw0oZgH3Ge-Ka_dZLh6xJajTS3GELJTU3034GZANRUtF5iicnIviDPdBiZaP8HGMxQILdhxiTirjOVA8A8rBrRBfINLBkWHE3if69veP5v4MHMX7PjJ7KWboUPjC5zhLAOXu6yR_6rOOrKA">
+      </div>
+      <span class="text-[9px] font-bold text-transparent bg-transparent px-1.5 py-0.5 rounded">—</span>
+      <h3 class="text-xs font-semibold text-gray-900 mt-1 leading-snug line-clamp-2">UltimateCare 700 — Classic White</h3>
+      <p class="text-[11px] font-bold text-[#e01e2b] mt-1">Save ฿3,000</p>
+      <div class="flex items-baseline gap-1">
+        <span class="text-xs font-bold text-gray-900">฿ 20,013</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDITORIAL LARGE BANNER ────────────────────────────────── -->
+<section class="px-4 py-4">
+  <div class="rounded-2xl overflow-hidden shadow-sm bg-neutral-200">
+    <img alt="Person cleaning with cordless vacuum" class="w-full h-80 object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5SfN5SfO4LD4zzAJU3BgQMQVa99SCrJ7eqB4UqOJHUYpvwNJWw0NgFKcYjptZ7M2uwzOKPrN9YKc_miFsBrdBzZ7MskIQkiV-bNqBQtHKoUROuk4wBXcSzRyU2RsCx8YbVMUojJ1f1N-Ph7uD3vPgVUlAApmtS_S5roIuHEEJJBU4sNDZsS8cDUIDsofn9vmDwK4HsQ9lJy8VoQsFMFtF0knFnh1-r35uUiur9qM">
+  </div>
+  <div class="mt-4 px-1">
+    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Floor Care · New Arrival</p>
+    <h3 class="text-xl font-bold text-gray-900 leading-snug">UltraReach 900 — the cordless that clears every room</h3>
+    <p class="text-sm text-gray-500 mt-1.5 leading-relaxed">60-minute runtime. Self-cleaning brush roll. Zero tangle, zero compromise.</p>
+    <button class="mt-4 bg-[#011e41] text-white px-6 py-2.5 rounded-full text-xs font-bold btn-tap transition-fast hover:bg-[#022a5a]">
+      View Product
+    </button>
+  </div>
+</section>
+
+<!-- ─── EDITORIAL SECONDARY CARDS ────────────────────────────── -->
+<section class="px-4 py-4">
+  <div class="flex gap-3.5 overflow-x-auto no-scrollbar snap-x-mandatory">
+    <!-- Card 1: Robot Vacuum -->
+    <div class="min-w-[270px] w-[270px] flex-shrink-0 snap-start product-card">
+      <div class="bg-[#dbcbbe] rounded-2xl p-6 flex items-center justify-center h-56">
+        <img alt="Robot vacuum cleaner with auto-empty base" class="max-h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_KMsWujQiuoe4EEfH1j6cqTXMtOjX6Q_Hkv9mUdzCnU1XdecIo-N13rtur5xozdWkwPWSmEFZhrrgZfDl1V1Tdy084xTitPgM3oDTwvtpzGdo658qyIncc8MX_s2naLXNdJqp2djish7OIcgaibQ3ynmv4kxiMBCKhrKwXpgW48gxVrOFYnKSCQTo0WLG-9gr2d-PeH26MQGLPtt3IvofokifE3p9GMMlSp03cGQ">
+      </div>
+      <h4 class="text-base font-bold text-gray-900 mt-3 leading-snug">PureFresh 900 — Auto-Empty Robot Vacuum</h4>
+      <p class="text-xs text-gray-500 mt-1 leading-normal">Maps your home in one pass. Auto-empties after every clean.</p>
+      <button class="mt-3 text-xs font-bold text-[#011e41] underline">See all robot vacuums →</button>
+    </div>
+    <!-- Card 2: Secondary -->
+    <div class="min-w-[270px] w-[270px] flex-shrink-0 snap-start product-card">
+      <div class="bg-[#d0c0b0] rounded-2xl p-6 flex items-center justify-center h-56">
+        <img alt="Modern home cleaning device" class="max-h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBls6lkxGCJanllRiTmklqbbUYNo281yg90d56iyWQHP-6-96wEcWh1ARN3xUshLh7DcBlnFALKwGMaB3Q353OCBKfymyfwyY3R5nX5pDMNDWRAFTuXoFzoQaM-s4LwtLh8MMd62Eou_bRE5rmVOcHGtgVn-1aN-nAFurAjbTJTHoyDN5wNMPK0-XuQHOnpevsgRQS7QyHGaWOyxpmzHQIY6zEhke9ryvjchH_WBlM">
+      </div>
+      <h4 class="text-base font-bold text-gray-900 mt-3 leading-snug">FlexiClean Wet-Dry Vac — one device, every floor</h4>
+      <p class="text-xs text-gray-500 mt-1 leading-normal">Washes and vacuums in a single pass on hard floors.</p>
+      <button class="mt-3 text-xs font-bold text-[#011e41] underline">Explore FlexiClean →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CUSTOMER SUPPORT JOURNEY ──────────────────────────────── -->
+<section class="bg-[#eceff2] py-8 px-4 mt-2">
+  <div class="text-center max-w-[260px] mx-auto mb-5">
+    <h2 class="text-lg font-bold text-gray-900 leading-snug">We support you at every step</h2>
+    <p class="text-xs text-gray-500 mt-1">From purchase to long-term care</p>
+  </div>
+
+  <!-- Pipeline -->
+  <div class="flex items-center justify-center gap-2 text-[10px] font-bold tracking-wider text-gray-700 uppercase mb-6">
+    <span class="pipeline-step active bg-[#bccad6] text-[#011e41] px-4 py-1.5 rounded-full cursor-pointer" data-step="buy">Buy</span>
+    <span class="text-gray-400 text-xs">→</span>
+    <span class="pipeline-step bg-[#f4f7f9] text-gray-600 px-3.5 py-1.5 rounded-full cursor-pointer" data-step="deliver">Deliver</span>
+    <span class="text-gray-400 text-xs">→</span>
+    <span class="pipeline-step bg-[#f4f7f9] text-gray-600 px-3 py-1.5 rounded-full cursor-pointer" data-step="support">Support</span>
+  </div>
+
+  <!-- Cards -->
+  <div class="flex gap-3 overflow-x-auto no-scrollbar snap-x-mandatory">
+    <!-- 0% Installment -->
+    <div class="min-w-[150px] w-[150px] bg-white rounded-2xl p-4 flex flex-col justify-between flex-shrink-0 shadow-sm min-h-[145px] snap-start product-card">
+      <div>
+        <div class="w-9 h-9 rounded-full border-2 border-gray-800 flex items-center justify-center font-black text-xs mb-3 text-gray-900">0%</div>
+        <h4 class="text-xs font-bold text-gray-900 leading-tight">0% Installment</h4>
+        <p class="text-[10px] text-gray-500 mt-0.5">Available on all orders</p>
+      </div>
+      <div class="text-right text-xs font-bold text-[#011e41] mt-2">→</div>
+    </div>
+    <!-- Free Delivery -->
+    <div class="min-w-[150px] w-[150px] bg-white rounded-2xl p-4 flex flex-col justify-between flex-shrink-0 shadow-sm min-h-[145px] snap-start product-card">
+      <div>
+        <div class="w-9 h-9 rounded-full border-2 border-gray-800 flex items-center justify-center mb-3 text-gray-900">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+        </div>
+        <h4 class="text-xs font-bold text-gray-900 leading-tight">Free Delivery</h4>
+        <p class="text-[10px] text-gray-500 mt-0.5">On every order</p>
+      </div>
+      <div class="text-right text-xs font-bold text-[#011e41] mt-2">→</div>
+    </div>
+    <!-- Free Return -->
+    <div class="min-w-[150px] w-[150px] bg-white rounded-2xl p-4 flex flex-col justify-between flex-shrink-0 shadow-sm min-h-[145px] snap-start product-card">
+      <div>
+        <div class="w-9 h-9 rounded-full border-2 border-gray-800 flex items-center justify-center mb-3 text-gray-900">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+        </div>
+        <h4 class="text-xs font-bold text-gray-900 leading-tight">Free Return</h4>
+        <p class="text-[10px] text-gray-500 mt-0.5">Within 14 days</p>
+      </div>
+      <div class="text-right text-xs font-bold text-[#011e41] mt-2">→</div>
+    </div>
+    <!-- 2yr Warranty -->
+    <div class="min-w-[150px] w-[150px] bg-white rounded-2xl p-4 flex flex-col justify-between flex-shrink-0 shadow-sm min-h-[145px] snap-start product-card">
+      <div>
+        <div class="w-9 h-9 rounded-full border-2 border-gray-800 flex items-center justify-center mb-3 text-gray-900">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/></svg>
+        </div>
+        <h4 class="text-xs font-bold text-gray-900 leading-tight">2-Year Warranty</h4>
+        <p class="text-[10px] text-gray-500 mt-0.5">On all appliances</p>
+      </div>
+      <div class="text-right text-xs font-bold text-[#011e41] mt-2">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer class="bg-[#011e41] text-white px-4 py-8 mt-2">
+  <div class="flex items-center gap-2 mb-5">
+    <div class="w-7 h-7 border-2 border-white rounded-full flex items-center justify-center font-black text-sm">E</div>
+    <span class="font-bold text-base tracking-wider uppercase">Electrolux</span>
+  </div>
+  <div class="grid grid-cols-2 gap-4 text-xs text-white/70 mb-6">
+    <div>
+      <p class="font-semibold text-white mb-2">Shop</p>
+      <ul class="space-y-1.5">
+        <li><a href="#" class="hover:text-white transition-fast">Laundry</a></li>
+        <li><a href="#" class="hover:text-white transition-fast">Kitchen</a></li>
+        <li><a href="#" class="hover:text-white transition-fast">Floor Care</a></li>
+        <li><a href="#" class="hover:text-white transition-fast">Air Care</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="font-semibold text-white mb-2">Support</p>
+      <ul class="space-y-1.5">
+        <li><a href="#" class="hover:text-white transition-fast">Register Product</a></li>
+        <li><a href="#" class="hover:text-white transition-fast">Manuals</a></li>
+        <li><a href="#" class="hover:text-white transition-fast">Service Centers</a></li>
+        <li><a href="#" class="hover:text-white transition-fast">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10 pt-4 text-[10px] text-white/40 text-center">
+    © 2026 Electrolux. All rights reserved.
+  </div>
+</footer>
+
+<!-- ─── BOTTOM NAV ────────────────────────────────────────────── -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white border-t border-gray-200 bottom-nav z-50">
+  <div class="flex items-center justify-around py-2.5 px-2">
+    <button class="flex flex-col items-center gap-0.5 text-[#011e41]">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span class="text-[9px] font-bold">Home</span>
+    </button>
+    <button class="flex flex-col items-center gap-0.5 text-gray-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+      <span class="text-[9px] font-medium">Search</span>
+    </button>
+    <button class="flex flex-col items-center gap-0.5 text-gray-400 relative">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+      <span class="cart-badge" style="top:-6px; right:-2px;">2</span>
+      <span class="text-[9px] font-medium">Cart</span>
+    </button>
+    <button class="flex flex-col items-center gap-0.5 text-gray-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+      <span class="text-[9px] font-medium">Account</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────────────── -->
+<script>
+  // ── Countdown Timer ──────────────────────────────────────────
+  function getSecondsUntilMidnight() {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+    return Math.floor((midnight - now) / 1000);
+  }
+
+  let totalSeconds = getSecondsUntilMidnight();
+
+  function updateCountdown() {
+    if (totalSeconds <= 0) {
+      document.getElementById('cd-h').textContent = '00';
+      document.getElementById('cd-m').textContent = '00';
+      document.getElementById('cd-s').textContent = '00';
+      return;
+    }
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+    totalSeconds--;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── Filter Tabs ───────────────────────────────────────────────
+  document.getElementById('filterTabs').addEventListener('click', function(e) {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+    document.querySelectorAll('.filter-tab').forEach(t => {
+      t.classList.remove('active', 'bg-[#d5dfe7]', 'text-[#011e41]', 'font-bold');
+      t.classList.add('bg-gray-100', 'text-gray-600');
+    });
+    tab.classList.add('active', 'bg-[#d5dfe7]', 'text-[#011e41]', 'font-bold');
+    tab.classList.remove('bg-gray-100', 'text-gray-600');
+  });
+
+  // ── Pipeline Steps ────────────────────────────────────────────
+  document.querySelectorAll('.pipeline-step').forEach(step => {
+    step.addEventListener('click', function() {
+      document.querySelectorAll('.pipeline-step').forEach(s => {
+        s.classList.remove('active', 'bg-[#bccad6]', 'text-[#011e41]');
+        s.classList.add('bg-[#f4f7f9]', 'text-gray-600');
+      });
+      this.classList.add('active', 'bg-[#bccad6]', 'text-[#011e41]');
+      this.classList.remove('bg-[#f4f7f9]', 'text-gray-600');
+    });
+  });
+
+  // ── Notify Me button feedback ─────────────────────────────────
+  const notifyBtn = document.querySelector('button.w-full.bg-\\[\\#011e41\\]');
+  if (notifyBtn) {
+    notifyBtn.addEventListener('click', function() {
+      const orig = this.innerHTML;
+      this.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg><span>You\'re on the list!</span>';
+      this.classList.add('bg-green-700');
+      this.classList.remove('bg-[#011e41]');
+      setTimeout(() => {
+        this.innerHTML = orig;
+        this.classList.remove('bg-green-700');
+        this.classList.add('bg-[#011e41]');
+      }, 3000);
+    });
+  }
+</script>
+
+</body>
+</html>
