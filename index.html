@@ -1,9 +1,13 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 <title>Electrolux Mobile Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script>
   tailwind.config = {
@@ -20,7 +24,7 @@
           }
         },
         fontFamily: {
-          sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif']
+          sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif']
         }
       }
     }
@@ -185,18 +189,17 @@
 </div>
 
 <!-- ─── HERO + HEADER ─────────────────────────────────────────── -->
-<section class="relative bg-neutral-900 text-white min-h-[460px] overflow-hidden flex flex-col justify-between">
+<section class="relative bg-neutral-900 text-white min-h-[560px] overflow-hidden flex flex-col justify-between">
   <!-- Hero background -->
   <div class="absolute inset-0 z-0">
-    <img alt="Holiday wooden floor living room background" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7CekwD3yzh6tX2ub8n9ZSe3CoYDodRmOKZYB5AAPO3UVbszTOhkPnflB2G9M2EMlEfHAgyAIVG9kJwXu1lC0omlFlQpmS2-apUqr-EdC_ClBBzB19_qTnIOEQpkCQ6SJBdT0d0TqMmlk1BtuHo5WKHe-wm0tsRb6cWdjARBb4ZORvHQfeY9AeSKB5CdKtfLBwIrYv44z9fxWx4lU88-J12MPkhEo2nHIvXRCzqDg">
-    <div class="absolute inset-0 bg-gradient-to-b from-black/65 via-black/10 to-black/75"></div>
+    <img alt="Electrolux homepage banner" class="w-full h-full object-cover object-center" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/homepage-d2c-banner.jpg">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30"></div>
   </div>
 
   <!-- Sticky-style header -->
-  <header class="relative z-10 px-4 pt-3 pb-1 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <div class="w-7 h-7 border-2 border-white rounded-full flex items-center justify-center font-black text-sm tracking-tighter">E</div>
-      <span class="font-bold text-lg tracking-wider uppercase">Electrolux</span>
+  <header class="relative z-10 px-4 pt-2 pb-0 flex items-center justify-between">
+    <div class="flex items-center">
+      <img src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/electrolux-logo-blue-rich.png" alt="Electrolux" class="h-7 w-auto object-contain brightness-0 invert" />
     </div>
     <div class="flex items-center gap-4">
       <button aria-label="User Profile" class="transition-fast active:opacity-60">
@@ -212,8 +215,9 @@
     </div>
   </header>
 
+
   <!-- Search bar -->
-  <div class="relative z-10 px-4 mt-1">
+  <div class="relative z-10 px-4" style="margin-top:-2px;">
     <div class="backdrop-blur-md bg-white/20 border border-white/30 rounded-full px-4 py-2.5 flex items-center gap-2.5 shadow-lg">
       <svg class="w-4 h-4 text-white/80 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/></svg>
       <input class="bg-transparent text-sm placeholder-white/80 text-white focus:outline-none w-full border-none focus:ring-0" placeholder="What are you looking for...?" type="text">
@@ -243,36 +247,36 @@
   <div class="grid grid-cols-5 gap-1 text-center mb-4">
     <!-- Laundry -->
     <a class="flex flex-col items-center group" href="#">
-      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
-        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect height="20" rx="2" stroke-width="1.8" width="16" x="4" y="2"/><circle cx="12" cy="13" r="5" stroke-width="1.8"/><circle cx="8" cy="6" fill="currentColor" r="1"/></svg>
+      <div class="w-[52px] h-[52px] rounded-full overflow-hidden group-active:opacity-80 transition-fast flex items-center justify-center" style="background-color:#ffffff;">
+        <img src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-nav-image.jpg" alt="Laundry" class="w-[70%] h-[70%] object-contain" />
       </div>
       <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Laundry</span>
     </a>
     <!-- Kitchen -->
     <a class="flex flex-col items-center group" href="#">
-      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
-        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 8h2a1 1 0 011 1v6a1 1 0 01-1 1h-2M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8M7 8V5a2 2 0 012-2h6a2 2 0 012 2v3" stroke-width="1.8"/></svg>
+      <div class="w-[52px] h-[52px] rounded-full overflow-hidden group-active:opacity-80 transition-fast flex items-center justify-center" style="background-color:#ffffff;">
+        <img src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/kitchen-nav-image.jpg" alt="Kitchen" class="w-[70%] h-[70%] object-contain" />
       </div>
       <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Kitchen</span>
     </a>
     <!-- Air -->
     <a class="flex flex-col items-center group" href="#">
-      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
-        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect height="18" rx="3" stroke-width="1.8" width="12" x="6" y="3"/><line stroke-width="1.8" x1="9" x2="15" y1="8" y2="8"/><line stroke-width="1.8" x1="9" x2="15" y1="12" y2="12"/><line stroke-width="1.8" x1="9" x2="15" y1="16" y2="16"/></svg>
+      <div class="w-[52px] h-[52px] rounded-full overflow-hidden group-active:opacity-80 transition-fast flex items-center justify-center" style="background-color:#ffffff;">
+        <img src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/air-nav-image.jpg" alt="Air" class="w-[70%] h-[70%] object-contain" />
       </div>
       <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Air</span>
     </a>
     <!-- Floor -->
     <a class="flex flex-col items-center group" href="#">
-      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
-        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 2v14M8 22h8l-2-6h-4l-2 6zM10 6h4" stroke-width="1.8"/></svg>
+      <div class="w-[52px] h-[52px] rounded-full overflow-hidden group-active:opacity-80 transition-fast flex items-center justify-center" style="background-color:#ffffff;">
+        <img src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/floor-nav-image.jpg" alt="Floor" class="w-[70%] h-[70%] object-contain" />
       </div>
       <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Floor</span>
     </a>
     <!-- Accessories -->
     <a class="flex flex-col items-center group" href="#">
-      <div class="w-[52px] h-[52px] rounded-full bg-[#f4f7f9] p-2.5 flex items-center justify-center border border-gray-100 group-active:bg-gray-200 transition-fast">
-        <svg class="w-7 h-7 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke-width="1.8"/><path d="M12 8v4l3 3" stroke-width="1.8"/></svg>
+      <div class="w-[52px] h-[52px] rounded-full overflow-hidden group-active:opacity-80 transition-fast flex items-center justify-center" style="background-color:#ffffff;">
+        <img src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/air-nav-image.jpg" alt="Accessories" class="w-[70%] h-[70%] object-contain" />
       </div>
       <span class="text-[11px] font-semibold mt-1.5 text-gray-800">Acc...</span>
     </a>
@@ -315,7 +319,7 @@
     <div class="min-w-[140px] w-[140px] bg-white rounded-2xl p-3 flex flex-col shadow-sm border border-gray-100 flex-shrink-0 snap-start product-card">
       <div class="absolute top-2 right-2 bg-[#e01e2b] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full badge-pulse relative">-37%</div>
       <div class="h-28 flex items-center justify-center mb-3 mt-1">
-        <img alt="Front Load Washing Machine" class="max-h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9KjgrVt6u2mNbHHU17VIQFS31gFc6hvSv0aTS1JaSn67MxNRGCIpO09oxqw_gEbLbtwltrQO6fkmdcxAEs5tpkIefHRRKEAOfYn8K-37mwKjHjODC3MW3Es1P0AWHBudVFKKIHr6sZgJ9ZJJcno3IGsX4DdnilTXDDTiQUkggjuRe8vMKat5TVEgcqS6J5C3hk54Q7U_qRUQwqKHDAsM_neqA9UM6cpYw-XcNcVU">
+        <img alt="UltimateTaste 900 Extraction Hob" class="max-h-full object-contain mix-blend-multiply" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-product-image.jpg">
       </div>
       <p class="text-[11px] text-gray-700 font-medium leading-tight mb-1.5">9/6kg UltimateCare 5 Washer Dryer</p>
       <p class="text-[10px] text-gray-400 line-through">฿ 30,990</p>
@@ -325,7 +329,7 @@
     <div class="min-w-[140px] w-[140px] bg-white rounded-2xl p-3 flex flex-col shadow-sm border border-gray-100 flex-shrink-0 snap-start product-card">
       <div class="absolute top-2 right-2 bg-[#e01e2b] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full badge-pulse relative">-38%</div>
       <div class="h-28 flex items-center justify-center mb-3 mt-1">
-        <img alt="Dark Washing Machine" class="max-h-full object-contain filter grayscale brightness-50 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTo2gHplQXsF8UYySDHYFOwOGjW4Ki2PzEJq3eE05ZzHkDHNACY5Wr83G6FcU_ADCPhYvuyhd57cL3wHO5qqC7Rdng533SiPnTxZaB43fLorPRqkRGNqZqUbTaHHKPHMTaN29rIXQrB9iHdQISz8fgkSBYMn93xtSpZbXtamMqhJTyc_xK-W9LWwiIaqV8kRSmMnPeuDF5j2PBGHT5eyBo51J0qEKTpZP425P_lho">
+        <img alt="UltimateCare Washer Dryer" class="max-h-full object-contain mix-blend-multiply" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-product-image.jpg">
       </div>
       <p class="text-[11px] text-gray-700 font-medium leading-tight mb-1.5">11.7/7kg UltimateCare Ultra</p>
       <p class="text-[10px] text-gray-400 line-through">฿ 35,990</p>
@@ -335,7 +339,7 @@
     <div class="min-w-[140px] w-[140px] bg-white rounded-2xl p-3 flex flex-col shadow-sm border border-gray-100 flex-shrink-0 snap-start product-card">
       <div class="absolute top-2 right-2 bg-[#e01e2b] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full badge-pulse relative">-31%</div>
       <div class="h-28 flex items-center justify-center mb-3 mt-1">
-        <img alt="Washing Machine" class="max-h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB46Zg1ye3kkFwb6sXmgJ_BwB1aFgrF8VQpqpuz3ggbO8tBg72OcFCgm4cp3PJUkTi3pqCjjg1GNOIBVEvdh8m6vMzyzvOne76xV-T9h2CAc8ajwZOJGD9NNosQP62OPzBx6-q4Vti76X7KkPwmnAaHkCTJkYqsFGxqOhj_KEGpYoFP_bBIRt7tFPbZPdTTMgS1D84wEH35hGqi0E7SN0aPvkx__BFDhbwCo085yHc">
+        <img alt="Washing Machine" class="max-h-full object-contain mix-blend-multiply" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-product-image.jpg">
       </div>
       <p class="text-[11px] text-gray-700 font-medium leading-tight mb-1.5">11kg UltimateCare 3 Washer</p>
       <p class="text-[10px] text-gray-400 line-through">฿ 24,990</p>
@@ -355,7 +359,7 @@
   <div class="flex gap-3.5 overflow-x-auto no-scrollbar snap-x-mandatory">
     <!-- Card 1: Cooktop -->
     <div class="min-w-[310px] w-[310px] h-[340px] rounded-2xl relative overflow-hidden shadow-md flex-shrink-0 snap-start product-card">
-      <img alt="Steaming pot on induction extractor hob" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFjboE8L3mBwD2ujiwSaMgpVpKEPzezvRue5BqKBztmUPkxE6qUYVsI5DVI9OA1pH-dhJZoTOWpJRXdxoAwT9weg11iasEbm05bk-IIwYHxPELXJMhB-jHXWJJkoLS1b1Vh-iP_2-_f746i29N-qKoV_RQ4iG4qImlRG5CRJGvBEKPnpT8MpfDI0e1FiZqJj9mDp4V0rDvYT56FDY2sjsfg9nKFp7WS3nt8nf9D5I">
+      <img alt="Electrolux extraction hob lifestyle" class="w-full h-full object-cover" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/extraction-hob.jpg">
       <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
       <div class="absolute bottom-3 left-3 right-3 bg-white rounded-xl p-2.5 flex items-center gap-3 shadow-lg">
         <div class="w-12 h-12 bg-black rounded-lg flex-shrink-0 flex items-center justify-center overflow-hidden">
@@ -376,11 +380,11 @@
     </div>
     <!-- Card 2: Laundry -->
     <div class="min-w-[310px] w-[310px] h-[340px] rounded-2xl relative overflow-hidden shadow-md flex-shrink-0 snap-start product-card">
-      <img alt="Modern washing machine laundry setup" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdcOGPGmcU81W2hsa3Ot70k1FuOylCsXeamXmNz_KkeRd52-FAx6gDg1s_CYnIbXoBCIzdyGQvfQ03-IMcCzkrLai5uwOrsbduaXHFvCyQVnHLFAZZqESag-anUaMFnIT_NPzwfc3TuSvQmD-7bIibS6g1T2QhGScEA7xoLv3hmSYpUpJkElobZpt5ADnRIB7_IoDw4jae12cwD5wex6OHbNDJpBqSJaN5R4JQLg4">
+      <img alt="Electrolux washing machine lifestyle" class="w-full h-full object-cover" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-slider.jpg">
       <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
       <div class="absolute bottom-3 left-3 right-3 bg-white rounded-xl p-2.5 flex items-center gap-3 shadow-lg">
         <div class="w-12 h-12 bg-gray-100 rounded-lg flex-shrink-0 flex items-center justify-center p-1 border border-gray-200">
-          <img alt="Washing Machine mini" class="max-h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB43O6ZlG9XdZP3f1MWDVZlPRweGWixg64hKIe9I-xDu2TiXe-RKQNcvWPEwEpJ3peTqHmbTDRF6S5SPfcuAMGE954uAxb4yjKhKycT0B1srImlNcWqz8IbJOQGv4zDvOQFc_D7sFhKjR1-ysIJWviqBgmEvjF85pBjRHrXWEfHYizqJAtAR08jhddMBfYXYZ4L3wbejL90S9nm3mRzTpSL06t8Fofxr_z3thy2jmQ">
+          <img alt="Washing machine thumbnail" class="max-h-full object-contain" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-product-image.jpg">
         </div>
         <div class="flex-1 min-w-0">
           <h4 class="text-[11px] font-semibold text-gray-800 leading-tight line-clamp-2">UltimateCare 700 Washer Dryer Combo 10/7kg</h4>
@@ -419,7 +423,7 @@
     <div class="min-w-[155px] w-[155px] flex-shrink-0 snap-start product-card cursor-pointer">
       <div class="bg-[#f5f6f8] rounded-xl p-3 relative h-48 flex items-center justify-center mb-2.5">
         <span class="absolute top-2 left-2 bg-[#011e41] text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center">#1</span>
-        <img alt="Silver Washing Machine" class="max-h-36 object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl_AaOwmvYxHar5Lz_hBBNECByk15rtpsE2zSvUZFraDbsA0fS-sD149khG0UGOmdPeZTxN3sp1lsEYU5uA6szNidkne0edM23r-WxTFaJUIw2HNlvYbcNVrC-ILliqLF5zG06N_5B-urJOicYbcR1eC78Xr0N3JEIwPngASP1Rq-HFUARFz6mgdAoJKfgAy3lZS56Qew3AdHd0reqTdA_qwZ4KPMjAzmhPPa8duY">
+        <img alt="Electrolux washing machine" class="max-h-36 object-contain mix-blend-multiply" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-product-image.jpg">
       </div>
       <span class="text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded uppercase tracking-wide">New 2026</span>
       <h3 class="text-xs font-semibold text-gray-900 mt-1 leading-snug line-clamp-2">UltimateCare 800 — Washer with SteamCare</h3>
@@ -433,7 +437,7 @@
     <div class="min-w-[155px] w-[155px] flex-shrink-0 snap-start product-card cursor-pointer">
       <div class="bg-[#f5f6f8] rounded-xl p-3 relative h-48 flex items-center justify-center mb-2.5">
         <span class="absolute top-2 left-2 bg-[#011e41] text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center">#2</span>
-        <img alt="Dark Washing Machine" class="max-h-36 object-contain filter grayscale brightness-50 mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa8W8kDVTOdS3w-bEBcyM1j8XU-i1t-47ljBCVQTcuViOG1U98M5Q3LeWIL_RQytCRDu8cw5jKVyOtX8bp_P4jLBTiZ5jOBDBOG1BN7UHnBlyuSovM1TgSBRePrq650ExU7zwquxahzlkFcUgM9-wvtrEtcrK_sNClzlL1aBuyxzKMKDc2RX5jIp81Wv5Xk_QOaoXAuZOpMLOdhVwN5dDTFMM5DJXYTdXc2ut4A7s">
+        <img alt="Electrolux washing machine" class="max-h-36 object-contain mix-blend-multiply" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-product-image.jpg">
       </div>
       <span class="text-[9px] font-bold text-blue-700 bg-blue-50 px-1.5 py-0.5 rounded uppercase tracking-wide">New 2026</span>
       <h3 class="text-xs font-semibold text-gray-900 mt-1 leading-snug line-clamp-2">UltimateCare 800 — Dark Edition</h3>
@@ -445,7 +449,7 @@
     <div class="min-w-[155px] w-[155px] flex-shrink-0 snap-start product-card cursor-pointer">
       <div class="bg-[#f5f6f8] rounded-xl p-3 relative h-48 flex items-center justify-center mb-2.5">
         <span class="absolute top-2 left-2 bg-[#011e41] text-white text-[10px] font-black w-6 h-6 rounded-full flex items-center justify-center">#3</span>
-        <img alt="White Washer" class="max-h-36 object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjjckfKXXk0HE_jTurG4ipXgBZIU0sZcMbVOYFWcFHtYuv6n-itjU1lnSFoRi8tqs39wpanKBYbpDy4zVIDtMxxJRcQw0oZgH3Ge-Ka_dZLh6xJajTS3GELJTU3034GZANRUtF5iicnIviDPdBiZaP8HGMxQILdhxiTirjOVA8A8rBrRBfINLBkWHE3if69veP5v4MHMX7PjJ7KWboUPjC5zhLAOXu6yR_6rOOrKA">
+        <img alt="Electrolux washing machine" class="max-h-36 object-contain mix-blend-multiply" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/washing-machine-product-image.jpg">
       </div>
       <span class="text-[9px] font-bold text-transparent bg-transparent px-1.5 py-0.5 rounded">—</span>
       <h3 class="text-xs font-semibold text-gray-900 mt-1 leading-snug line-clamp-2">UltimateCare 700 — Classic White</h3>
@@ -460,7 +464,7 @@
 <!-- ─── EDITORIAL LARGE BANNER ────────────────────────────────── -->
 <section class="px-4 py-4">
   <div class="rounded-2xl overflow-hidden shadow-sm bg-neutral-200">
-    <img alt="Person cleaning with cordless vacuum" class="w-full h-80 object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5SfN5SfO4LD4zzAJU3BgQMQVa99SCrJ7eqB4UqOJHUYpvwNJWw0NgFKcYjptZ7M2uwzOKPrN9YKc_miFsBrdBzZ7MskIQkiV-bNqBQtHKoUROuk4wBXcSzRyU2RsCx8YbVMUojJ1f1N-Ph7uD3vPgVUlAApmtS_S5roIuHEEJJBU4sNDZsS8cDUIDsofn9vmDwK4HsQ9lJy8VoQsFMFtF0knFnh1-r35uUiur9qM">
+    <img alt="Electrolux cordless vacuum cleaner" class="w-full h-80 object-cover object-center" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/vacuum-cleaner.jpg">
   </div>
   <div class="mt-4 px-1">
     <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Floor Care · New Arrival</p>
@@ -477,8 +481,8 @@
   <div class="flex gap-3.5 overflow-x-auto no-scrollbar snap-x-mandatory">
     <!-- Card 1: Robot Vacuum -->
     <div class="min-w-[270px] w-[270px] flex-shrink-0 snap-start product-card">
-      <div class="bg-[#dbcbbe] rounded-2xl p-6 flex items-center justify-center h-56">
-        <img alt="Robot vacuum cleaner with auto-empty base" class="max-h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_KMsWujQiuoe4EEfH1j6cqTXMtOjX6Q_Hkv9mUdzCnU1XdecIo-N13rtur5xozdWkwPWSmEFZhrrgZfDl1V1Tdy084xTitPgM3oDTwvtpzGdo658qyIncc8MX_s2naLXNdJqp2djish7OIcgaibQ3ynmv4kxiMBCKhrKwXpgW48gxVrOFYnKSCQTo0WLG-9gr2d-PeH26MQGLPtt3IvofokifE3p9GMMlSp03cGQ">
+      <div class="rounded-2xl flex items-center justify-center h-56 overflow-hidden" style="background-color: #d9c9b0;">
+        <img alt="Electrolux robot vacuum" class="w-[80%] h-[80%] object-contain" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/robot-vacuum.jpg">
       </div>
       <h4 class="text-base font-bold text-gray-900 mt-3 leading-snug">PureFresh 900 — Auto-Empty Robot Vacuum</h4>
       <p class="text-xs text-gray-500 mt-1 leading-normal">Maps your home in one pass. Auto-empties after every clean.</p>
@@ -486,8 +490,8 @@
     </div>
     <!-- Card 2: Secondary -->
     <div class="min-w-[270px] w-[270px] flex-shrink-0 snap-start product-card">
-      <div class="bg-[#d0c0b0] rounded-2xl p-6 flex items-center justify-center h-56">
-        <img alt="Modern home cleaning device" class="max-h-full object-contain mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBls6lkxGCJanllRiTmklqbbUYNo281yg90d56iyWQHP-6-96wEcWh1ARN3xUshLh7DcBlnFALKwGMaB3Q353OCBKfymyfwyY3R5nX5pDMNDWRAFTuXoFzoQaM-s4LwtLh8MMd62Eou_bRE5rmVOcHGtgVn-1aN-nAFurAjbTJTHoyDN5wNMPK0-XuQHOnpevsgRQS7QyHGaWOyxpmzHQIY6zEhke9ryvjchH_WBlM">
+      <div class="rounded-2xl flex items-center justify-center h-56 overflow-hidden" style="background-color: #d9c9b0;">
+        <img alt="Electrolux robot vacuum" class="w-[80%] h-[80%] object-contain" src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/robot-vacuum.jpg">
       </div>
       <h4 class="text-base font-bold text-gray-900 mt-3 leading-snug">FlexiClean Wet-Dry Vac — one device, every floor</h4>
       <p class="text-xs text-gray-500 mt-1 leading-normal">Washes and vacuums in a single pass on hard floors.</p>
@@ -561,9 +565,8 @@
 
 <!-- ─── FOOTER ────────────────────────────────────────────────── -->
 <footer class="bg-[#011e41] text-white px-4 py-8 mt-2">
-  <div class="flex items-center gap-2 mb-5">
-    <div class="w-7 h-7 border-2 border-white rounded-full flex items-center justify-center font-black text-sm">E</div>
-    <span class="font-bold text-base tracking-wider uppercase">Electrolux</span>
+  <div class="flex items-center mb-5">
+    <img src="https://raw.githubusercontent.com/jasongrant-elx/homepage-d2c-test/main/media-d2c/electrolux-logo-blue-rich.png" alt="Electrolux" class="h-7 w-auto object-contain brightness-0 invert" />
   </div>
   <div class="grid grid-cols-2 gap-4 text-xs text-white/70 mb-6">
     <div>
@@ -687,3 +690,5 @@
 
 </body>
 </html>
+
+</body></html>
